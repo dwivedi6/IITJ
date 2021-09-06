@@ -1,0 +1,6 @@
+FROM python.:3
+RUN mkdir WORK_DIRECTORY
+RUN cd WORK_DIRECTORY
+WORKIR /WORK_DIRECTORY
+ADD mt19aie323-helloiitj
+CMD ["python","-u","mt19aie323-helloiitj.py"]
