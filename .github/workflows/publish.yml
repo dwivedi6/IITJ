@@ -1,33 +1,16 @@
-# This is a basic workflow to help you get started with Actions
-
 name: publish
 
-# Controls when the workflow will run
 on: [push]
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+
 jobs:
-  publish-mt19aie323-helloiitj-image:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
+  publish-hello-world-image:
     runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
+    - uses: actions/checkout@v2
 
-      # Runs a single command using the runners shell
-      - name: Login to GitHub Container Registry
-        uses: docker/login-action@v1
-        with:
-         registry: ghcr.io
-         username: ${{ github.actor }}
-         password: ${{ secrets.GITHUB_TOKEN }}
-
-      # Runs a set of commands using the runners shell
-      - name: Build the hello-world Docker image
-        run: |
-          docker build . --tag ghcr.io/dwivedi6/mt19aie323-helloiitj:latest
-          docker run ghcr.io/dwivedi6/mt19aie323-helloiitj:latest
-          docker push ghcr.io/dwivedi6/mt19aie323-helloiitj:latest
+    - name: Build the hello-world Docker image
+      run: |
+        echo $CR_PAT | docker login ghcr.io -u dwivedi6 --password-stdin
+      env:
+        CR_PAT: ${{ secrets.CR_PAT }}
